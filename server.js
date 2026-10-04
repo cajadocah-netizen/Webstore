@@ -36,7 +36,6 @@ app.post('/api/apps', (req, res) => {
   apps.push(newApp);
   res.json({ success: true, app: newApp });
 });
-});
 
 // Criar conta
 app.post('/api/register', (req, res) => {
