@@ -36,6 +36,31 @@ app.post('/api/apps', (req, res) => {
   apps.push(newApp);
   res.json({ success: true, app: newApp });
 });
+});
+
+// Criar conta
+app.post('/api/register', (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({
+      success: false,
+      message: "Preencha usuário e senha"
+    });
+  }
+
+  if (users.some(u => u.username === username)) {
+    return res.status(409).json({
+      success: false,
+      message: "Usuário já existe"
+    });
+  }
+
+  users.push({ username, password, role: "user" });
+
+  res.json({ success: true, message: "Conta criada!" });
+});
+
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
